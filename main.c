@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/01/31 23:41:00 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/01 00:06:55 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int main (void)
 {
-	print("HELLO WORLD\n");
+	printf("HELLO WORLD\n");
 }

@@ -1,49 +1,29 @@
-#			NAME			#
-NAME = 		philosphers
+NAME = philosophers
 
-#			COMPILATOR		#
-COMPILER = 	cc
+SRCS	= main.c 
 
-#			VARIABLES		#
-SRCS =	main.c 
+OBJS	= ${SRCS:.c=.o}
 
-INCLUDES 	= includes/philosophers.h
+CFLAGS	= -Wall -Werror -Wextra -g
 
-#			OBJECTS			#
+CC		= cc
 
-OBJS	=	${SRCS:.c=.o}
-OBJS	:= 	$(addprefix objs/,${OBJS})
-DEP		= 	$(OBJS:.o=.d)
+RM		= rm -f
 
-# 			FLAGS 		#
+all:	$(NAME)
 
-FLAGS	= 	-g -Wall -Werror -Wextra
+$(NAME):	${OBJS}
+			${CC} ${CFLAGS} ${OBJS} -o ${NAME}
 
-#			RULES		#
-
-all:		${NAME}
-
-$(NAME):	${OBJS} ${INCLUDES}
-			${COMPILER} ${FLAGS} -I includes ${OBJS} -O $(NAME)
-
--include $(DEP)
-
-objs/%.o:		srcs/%.c
-					@mkdir -p $(dir $@)
-					@${COMPILER} -MMD ${FLAGS} -I includes -o $@ -c $<
-
-norme:
-				@norminette srcs/*
-				@norminette includes/*
+.c.o:
+		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 clean:
-				rm -f ${OBJS}
+		${RM} ${OBJS}
 
-fclean:
-				rm -f ${OBJS}
-				rm -f ${NAME}
-				rm -rf objs
+fclean:		clean
+			${RM} ${NAME}
 
-re:				fclean all
+re:		fclean all
 
-.PHONY:			all norme clean fclean re
+.PHONY:		all clean fclean re bonus
