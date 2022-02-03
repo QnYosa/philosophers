@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/04 00:14:31 by dyoula           ###   ########.fr       */
+/*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
+/*   Updated: 2022/02/04 00:14:43 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philosophers.h"
 
-void	*routine(void)
+void	init_struct(int ac, char **av, t_banquet *banquet)
 {
-	printf("salut\n");
-	return (NULL);
-}
-
-int	main(int ac, char **av)
-{
-	// pthread_t	t1;
-	// pthread_t	t2;
-	t_banquet	banquet;
-	if (parsing_maestro(ac, av) < 0)
-		return (-1);
-	init_struct(ac, av, &banquet);
-	// phtread_create(&t1, NULL, &routine, NULL);
-	// phtread_create(&t2, NULL, &routine, NULL);
-	// pthread_join(t1, NULL);
-	// pthread_join(t2, NULL);
-	printf("HELLO WORLD\n");
-	return (0);
+	banquet->ac = ac;
+	banquet->n_philo = ft_atoi(av[1]);
+	banquet->time_to_die = ft_atoi(av[2]);
+	banquet->time_to_eat = ft_atoi(av[3]);
+	banquet->time_to_sleep = ft_atoi(av[4]);
+	if (ac == 6)
+		banquet->meals_limit = ft_atoi(av[5]);
 }

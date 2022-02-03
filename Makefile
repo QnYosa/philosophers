@@ -1,6 +1,7 @@
 NAME = philosophers
 
-SRCS	= main.c 
+SRCS	= main.c parsing.c parsing_utils.c errors.c \
+		init_struct.c
 
 OBJS	= ${SRCS:.c=.o}
 
