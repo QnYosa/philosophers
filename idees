@@ -1,0 +1,30 @@
+tableau de structire de philo 
+tableau de fourchettes
+
+
+philo will first take fork[i]
+then take_fork[i + 1 % 5]
+
+
+think for a while
+lock left fork
+lock right fork
+eat for a while
+unlock left fork
+unlock right fork
+
+create a thread for each philo
+each fork must have a mutex
+
+struct
+tableau de philosophers du coup
+variable:
+	time_to_die
+	time_to_eat
+	time_to_sleep
+	meals_limit
+
+fork[]
+	= array of pointers to MUTEX
+
+use i + 1 % n_philo

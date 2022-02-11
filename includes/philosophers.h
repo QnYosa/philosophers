@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/04 00:21:16 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/11 17:07:27 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@
 # include <stdlib.h>
 # include <pthread.h>
 
-typedef struct s_table
+typedef struct s_philo
 {
-	pthread_t	*philo;
-}	t_table;
+	pthread_t	philo;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			meals_limit;
+}	t_philo;
 
 typedef struct s_banquet
 {
-	int		ac;
-	int		n_philo;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		meals_limit;
+	t_philo			*guests;
+	pthread_mutex_t	*forks;
+	int				n_guests;
 }	t_banquet;
 
 /*		PARSING.C		*/
@@ -47,6 +48,7 @@ size_t	ft_strlen(const char *str);
 int		parsing_errors(int n);
 
 /*		INIT_STRUCT.C	*/
-void	init_struct(int ac, char **av, t_banquet *banquet);
+void	init_struct(t_banquet *banquet);
+int		assign_struct(int ac, char **av, t_banquet *banquet);
 
 #endif

@@ -6,12 +6,11 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 23:37:11 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/04 00:21:08 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/11 14:53:12 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philosophers.h"
-
 
 int	ft_isdigit(int c)
 {
