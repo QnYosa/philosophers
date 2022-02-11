@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/11 17:18:22 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/11 17:22:16 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@ void	*routine(void)
 	return (NULL);
 }
 
+// void *func3(void* param)
+// {
+//     pthread_mutex_lock(&mutex);
+//     printf("Incrementing the shared variable...\n");
+//     for (int i = 0; i < 10000; ++i) {
+//         shared += 1;
+//     }
+//     pthread_mutex_unlock(&mutex);
+//     return 0;
+// }
+// looks like a meal to me.
 
 int	main(int ac, char **av)
 {
