@@ -6,7 +6,7 @@
 /*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/12 02:27:55 by dimitriyoul      ###   ########.fr       */
+/*   Updated: 2022/02/12 03:40:02 by dimitriyoul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ typedef struct s_philo
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 	int					no;
+	struct s_banquet	*banquet;
 }	t_philo;
 
 typedef struct s_banquet
 {
 	t_philo			*guests;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	mutex;
 	int				n_guests;
 }	t_banquet;
 
@@ -51,7 +53,14 @@ size_t	ft_strlen(const char *str);
 int		parsing_errors(int n);
 
 /*		INIT_STRUCT.C	*/
-void	init_struct(t_banquet *banquet);
+int		init_struct(t_banquet *banquet);
 int		assign_struct(int ac, char **av, t_banquet *banquet);
+
+/*		DISPLAY.C		*/
+void	display_banquet(t_philo *phi, char *str);
+
+/*		BANQUET.C		*/
+int		grab_fork(t_philo *phi);
+int	eat(t_philo *phi);
 
 #endif

@@ -6,40 +6,12 @@
 /*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/12 03:05:17 by dimitriyoul      ###   ########.fr       */
+/*   Updated: 2022/02/12 03:37:58 by dimitriyoul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philosophers.h"
 
-int	grab_fork(t_philo *phi)
-{
-	// faire comprendre qui prend la fourhette et laquelle ils doivent prendre.
-	if (phi->no % 2 == 0)
-	{
-		pthread_mutex_lock(phi->right_fork);
-		// printf("j'ai attrape une right fork \n");
-		// printf("je suis philo numero %d\n", phi->no);
-	}
-	else
-	{
-		pthread_mutex_lock(phi->left_fork);
-		// printf("j'ai attrape une left fork \n");
-		// printf("je suis philo numero %d\n", phi->no);
-	}
-	if (phi->no % 2 == 0)
-	{
-		// printf("j'ai lache une fourchette\n");
-		pthread_mutex_unlock(phi->right_fork);
-		
-	}
-	else
-	{
-		// printf("j'ai lache une fourchette\n");
-		pthread_mutex_unlock(phi->left_fork);
-	}
-	return (0);
-}
 
 // void	*routines(t_banquet *b)
 // {
@@ -71,8 +43,8 @@ void	*routine(void *b)
 	phi = (t_philo *)b;
 	while (1)
 	{
-		printf("yo\n");
-		grab_fork(b);
+		// printf("yo\n");
+		grab_fork(phi);
 	}
 }
 

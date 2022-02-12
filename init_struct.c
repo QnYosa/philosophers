@@ -6,7 +6,7 @@
 /*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/12 02:44:29 by dimitriyoul      ###   ########.fr       */
+/*   Updated: 2022/02/12 03:28:57 by dimitriyoul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,18 @@ int	assign_struct(int ac, char **av, t_banquet *banquet)
 		else
 			banquet->guests[i].meals_limit = -1;
 		banquet->guests[i].no = i + 1;
+		banquet->guests[i].banquet = banquet;
 		assign_forks_philo(banquet);
 	}
 	return (1);
 }
 
-void	init_struct(t_banquet *banquet)
+int	init_struct(t_banquet *banquet)
 {
 	banquet->guests = NULL;
 	banquet->forks = NULL;
 	banquet->n_guests = 0;
+	if (pthread_mutex_init(&banquet->mutex, NULL))
+		return (-1);
+	return (1);
 }
