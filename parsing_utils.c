@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 23:37:11 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/11 14:53:12 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/12 23:10:45 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ int	ft_atoi(const char *str)
 	return ((number * sign));
 }
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	size_t	i;
+	int	i;
 
+	if (str == 0)
+		return (0);
 	i = 0;
 	while (str[i])
 		i++;

@@ -5,7 +5,7 @@ SRCS	= main.c parsing.c parsing_utils.c errors.c \
 
 OBJS	= ${SRCS:.c=.o}
 
-CFLAGS	= -Wall -Werror -Wextra -g
+CFLAGS	= -Wall -Werror -Wextra -g -pthread
 
 CC		= cc
 

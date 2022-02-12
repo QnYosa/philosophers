@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
+/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/12 03:37:58 by dimitriyoul      ###   ########.fr       */
+/*   Updated: 2022/02/12 23:13:40 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	*routine(void *b)
 	phi = (t_philo *)b;
 	while (1)
 	{
-		// printf("yo\n");
+		ft_putstr_fd("philospher no = ", 1);
+		ft_putnbr_fd(phi->no, 1);
+		ft_putstr_fd(" is thinking \n", 1);
 		grab_fork(phi);
 	}
 }
@@ -62,7 +64,7 @@ int	create_threads(t_banquet *b)
 	while (++i < b->n_guests)
 	{
 		if (pthread_join(b->guests[i].philo, NULL))
-			return(-1);
+			return (-1);
 	}
 	return (0);
 }
@@ -77,6 +79,7 @@ int	main(int ac, char **av)
 		return (-1);
 	init_struct(&banquet);
 	assign_struct(ac, av, &banquet);
+	// printf("%d\n", gettimeofday());
 	create_threads(&banquet);
 	// differencier les gauchers et les droitiers.
 	// objectif faire la prise de fourchette
