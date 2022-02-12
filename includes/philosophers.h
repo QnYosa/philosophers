@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/11 17:07:27 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/12 02:27:55 by dimitriyoul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@
 
 typedef struct s_philo
 {
-	pthread_t	philo;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			meals_limit;
+	pthread_t			philo;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					meals_limit;
+	pthread_mutex_t		*left_fork;
+	pthread_mutex_t		*right_fork;
+	int					no;
 }	t_philo;
 
 typedef struct s_banquet
