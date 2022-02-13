@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
+/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/12 03:28:57 by dimitriyoul      ###   ########.fr       */
+/*   Updated: 2022/02/13 16:12:45 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,31 @@ int	assign_forks_philo(t_banquet *b)
 	return (0);
 }
 
+void	init_philo(t_banquet *banquet)
+{
+	int	i;
+
+	i = -1;
+	while (++i < banquet->n_guests)
+	{
+		banquet->guests[i].no = 0;
+		banquet->guests[i].time_to_die = 0;
+		banquet->guests[i].time_to_eat = 0;
+		banquet->guests[i].time_to_sleep = 0;
+		banquet->guests[i].banquet = NULL;
+	}
+}
+
+int	init_struct(t_banquet *banquet)
+{
+	banquet->guests = NULL;
+	banquet->forks = NULL;
+	banquet->n_guests = 0;
+	if (pthread_mutex_init(&banquet->mutex, NULL))
+		return (-1);
+	return (1);
+}
+
 int	assign_struct(int ac, char **av, t_banquet *banquet)
 {
 	int	i;
@@ -35,6 +60,7 @@ int	assign_struct(int ac, char **av, t_banquet *banquet)
 	banquet->forks = malloc(sizeof(pthread_mutex_t) * banquet->n_guests);
 	if (!banquet->n_guests || !banquet->forks)
 		return (-1);
+	init_philo(banquet);
 	while (++i < banquet->n_guests)
 	{
 		if (pthread_mutex_init(banquet->forks + i, NULL) != 0)
@@ -53,12 +79,3 @@ int	assign_struct(int ac, char **av, t_banquet *banquet)
 	return (1);
 }
 
-int	init_struct(t_banquet *banquet)
-{
-	banquet->guests = NULL;
-	banquet->forks = NULL;
-	banquet->n_guests = 0;
-	if (pthread_mutex_init(&banquet->mutex, NULL))
-		return (-1);
-	return (1);
-}
