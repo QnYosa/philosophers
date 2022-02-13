@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 03:37:40 by dimitriyoul       #+#    #+#             */
-/*   Updated: 2022/02/13 00:45:34 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/13 14:34:14 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,8 @@ int	grab_fork(t_philo *phi)
 		display_banquet(phi, "has taken left fork\n");
 		eat(phi);
 		display_banquet(phi, "has taken right fork\n");
-		release_fork(phi);
+		drop_fork(phi);
 		// pthread_mutex_unlock(phi->right_fork);
-		
 	}
 	else
 	{
@@ -62,13 +61,13 @@ int	grab_fork(t_philo *phi)
 		pthread_mutex_lock(phi->right_fork);
 		eat(phi);
 		display_banquet(phi, "has taken right fork\n");
-		release_fork(phi);
+		drop_fork(phi);
 		// pthread_mutex_unlock(phi->left_fork);
 	}
 	return (0);
 }
 
-int	release_fork(t_philo *phi)
+int	drop_fork(t_philo *phi)
 {
 	display_banquet(phi, "put back left fork");
 	pthread_mutex_unlock(phi->left_fork);

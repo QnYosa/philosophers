@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 03:10:22 by dimitriyoul       #+#    #+#             */
-/*   Updated: 2022/02/12 23:20:35 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/13 14:34:06 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,3 @@ void	ft_putnbr_fd(int nb, int fd)
 		ft_putnbr_fd(nb / 10, fd);
 	ft_putchar(nb % 10 + 48, fd);
 }
-

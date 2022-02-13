@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/13 00:48:34 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/13 14:34:01 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ void	ft_putnbr_fd(int nb, int fd);
 /*		BANQUET.C		*/
 int		grab_fork(t_philo *phi);
 int		eat(t_philo *phi);
-int		release_fork(t_philo *phi);
+int		drop_fork(t_philo *phi);
 #endif
