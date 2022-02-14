@@ -18,7 +18,7 @@ long	time_passed(long last)
 	long			now;
 
 	gettimeofday(&time, NULL);
-	now = time.tv_usec / 1000;
+	now = time.tv_usec / 1000 + time.tv_sec * 1000;
 	return (now - last);
 }
 
@@ -28,20 +28,45 @@ long	last_meal_actualization(void)
 	long			now;
 
 	gettimeofday(&time, NULL);
-	now = time.tv_usec / 1000;
+	now = time.tv_usec / 1000 + time.tv_sec * 1000;
 	return (now);
 }
 
 void	ft_usleep(int sleep)
 {
 	int	minus;
+	int	i;
 
+	i = -1;
 	minus = sleep / 10;
-	// faire gettime() au pire
-	while (sleep - minus >= 0)
-	{
-		// printf("minus %d\n", minus);
+	while (++i < 10)
 		usleep(minus);
-		minus += minus;
+}
+
+long	init_time(void)
+{
+	struct timeval	time;
+	long			start;
+
+	gettimeofday(&time, NULL);
+	start = time.tv_usec / 1000 + time.tv_sec * 1000;
+	return (start);
+}
+
+int	is_dead(t_philo *phi)
+{
+	long			time_now;
+	struct	timeval	c_time;
+
+	gettimeofday(&c_time, NULL);
+	time_now = c_time.tv_usec / 1000 + c_time.tv_sec * 1000;
+	pthread_mutex_lock(&phi->banquet->tlk_stick);
+	// printf("result =  %ld\n",time_now - phi->last_meal);
+	if (time_now - phi->last_meal > phi->time_to_die)
+	{
+		display_banquet(phi, "philo died\n", phi->banquet->t_start);
+		return (1);
 	}
+	pthread_mutex_unlock(&phi->banquet->tlk_stick);
+	return (0);
 }

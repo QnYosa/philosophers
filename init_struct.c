@@ -45,6 +45,7 @@ int	init_struct(t_banquet *banquet)
 	banquet->guests = NULL;
 	banquet->forks = NULL;
 	banquet->n_guests = 0;
+	banquet->t_start = 0;
 	if (pthread_mutex_init(&banquet->mutex, NULL))
 		return (-1);
 	return (1);
@@ -58,6 +59,7 @@ int	assign_struct(int ac, char **av, t_banquet *banquet)
 	banquet->n_guests = ft_atoi(av[1]);
 	banquet->guests = malloc(sizeof(t_philo) * banquet->n_guests);
 	banquet->forks = malloc(sizeof(pthread_mutex_t) * banquet->n_guests);
+	banquet->t_start = init_time();
 	if (!banquet->n_guests || !banquet->forks)
 		return (-1);
 	init_philo(banquet);

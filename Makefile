@@ -7,7 +7,7 @@ OBJS	= ${SRCS:.c=.o}
 
 CFLAGS	= -Wall -Werror -Wextra -g -pthread
 
-CC		= cc
+CC		= gcc
 
 RM		= rm -f
 

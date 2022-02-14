@@ -46,8 +46,8 @@ void	*routine(void *b)
 		// ft_putstr_fd("philospher no = ", 1);
 		// ft_putnbr_fd(phi->no, 1);
 		// ft_putstr_fd(" is thinking \n", 1);
-		if (grab_fork(phi) < 0)
-			break ;
+		if (grab_fork(phi, phi->banquet->t_start) < 0)
+			return (NULL);
 	}
 	return (NULL);
 }
@@ -61,7 +61,7 @@ int	create_threads(t_banquet *b)
 	i = -1;
 	while (++i < b->n_guests)
 	{
-		b->guests[i].last_meal = t.tv_usec / 1000;
+		b->guests[i].last_meal = (t.tv_usec / 1000) + (t.tv_sec * 1000);
 		if (pthread_create(&b->guests[i].philo, NULL, &routine, &b->guests[i]))
 			return (-1);
 	}
@@ -76,25 +76,13 @@ int	create_threads(t_banquet *b)
 
 int	main(int ac, char **av)
 {
-	// pthread_t	t1;
-	// pthread_t	t2;
 	t_banquet	banquet;
-	struct timeval		time_start;
-	int i, j;
+
 	if (parsing_maestro(ac, av) < 0)
 		return (-1);
 	init_struct(&banquet);
 	assign_struct(ac, av, &banquet);
-	gettimeofday(&time_start, NULL);
-	i = time_start.tv_usec / 1000;
-	printf("yo %d\n", i);
-	gettimeofday(&time_start, NULL);
-	j = time_start.tv_usec / 1000;
-	printf("yo %d\n", j);
-	printf("%d ms sont passees\n", (j - i) / 1000);
 	create_threads(&banquet);
-	// differencier les gauchers et les droitiers.
-	// objectif faire la prise de fourchette
 	printf("HELLO WORLD\n");
 	return (0);
 }

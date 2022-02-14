@@ -21,10 +21,13 @@ void	display_banquet(t_philo *phi, char *str, long start)
 {
 	pthread_mutex_lock(&phi->banquet->display);
 	printf("%ld %d %s\n", time_passed(start), phi->no, str);
-	ft_putnbr_fd(phi->no, 1);
-	ft_putstr_fd(" ", 1);
-	ft_putstr_fd(str, 1);
-	ft_putstr_fd("\n", 1);
+	pthread_mutex_unlock(&phi->banquet->display);
+}
+
+void	talk(char *str, t_philo *phi)
+{
+	pthread_mutex_lock(&phi->banquet->tlk_stick);
+	printf("%d, %s\n",phi->no, str);
 	pthread_mutex_unlock(&phi->banquet->display);
 }
 

@@ -43,8 +43,10 @@ typedef struct s_banquet
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	display;
+	pthread_mutex_t	tlk_stick;
 	int				n_guests;
 	long long		t_start;
+	int				end;
 }	t_banquet;
 
 /*		PARSING.C		*/
@@ -66,6 +68,7 @@ int		assign_struct(int ac, char **av, t_banquet *banquet);
 void	display_banquet(t_philo *phi, char *str, long start);
 void	ft_putstr_fd(char *str, int fd);
 void	ft_putnbr_fd(int nb, int fd);
+void	talk(char *str, t_philo *phi);
 
 /*		BANQUET.C		*/
 int		grab_fork(t_philo *phi, long start);
@@ -76,5 +79,7 @@ int		drop_fork(t_philo *phi, long start);
 long	time_passed(long last);
 long	last_meal_actualization(void);
 void	ft_usleep(int sleep);
+long	init_time(void);
+int		is_dead(t_philo *phi);
 
 #endif
