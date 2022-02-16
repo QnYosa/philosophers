@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:13:27 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/13 18:09:48 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/15 19:58:27 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_usleep(int sleep)
 	int	i;
 
 	i = -1;
-	minus = sleep / 10;
+	minus = sleep / 1000;
 	while (++i < 10)
 		usleep(minus);
 }

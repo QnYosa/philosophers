@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/13 16:12:45 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/15 19:43:39 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int	init_struct(t_banquet *banquet)
 	banquet->n_guests = 0;
 	banquet->t_start = 0;
 	if (pthread_mutex_init(&banquet->mutex, NULL))
+		return (-1);
+	if (pthread_mutex_init(&banquet->tlk_stick, NULL))
+		return (-1);
+	if (pthread_mutex_init(&banquet->display, NULL))
 		return (-1);
 	return (1);
 }

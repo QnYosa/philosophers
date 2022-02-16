@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 03:10:22 by dimitriyoul       #+#    #+#             */
-/*   Updated: 2022/02/13 18:00:03 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/15 19:44:51 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	display_banquet(t_philo *phi, char *str, long start)
 void	talk(char *str, t_philo *phi)
 {
 	pthread_mutex_lock(&phi->banquet->tlk_stick);
-	printf("%d, %s\n",phi->no, str);
+	printf("talk %d, %s\n",phi->no, str);
 	pthread_mutex_unlock(&phi->banquet->display);
 }
 

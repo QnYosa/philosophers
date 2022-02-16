@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/13 15:40:58 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/15 19:48:16 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	create_threads(t_banquet *b)
 		b->guests[i].last_meal = (t.tv_usec / 1000) + (t.tv_sec * 1000);
 		if (pthread_create(&b->guests[i].philo, NULL, &routine, &b->guests[i]))
 			return (-1);
+		usleep(300);
 	}
 	i = -1;
 	while (++i < b->n_guests)
@@ -80,7 +81,8 @@ int	main(int ac, char **av)
 
 	if (parsing_maestro(ac, av) < 0)
 		return (-1);
-	init_struct(&banquet);
+	if (init_struct(&banquet) < 0)
+		return (-1);
 	assign_struct(ac, av, &banquet);
 	create_threads(&banquet);
 	printf("HELLO WORLD\n");
