@@ -5,34 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Crmealed: 2022/02/12 03:37:40 by dimitriyoul       #+#    #+#             */
-/*   Updated: 2022/02/13 15:10:25 by dyoula           ###   ########.fr       */
+/*   Created: 2022/02/16 23:12:36 by dyoula            #+#    #+#             */
+/*   Updated: 2022/02/17 01:08:02 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philosophers.h"
 
+int	sleeping(t_philo *phi)
+{
+	display_banquet(phi, "is sleeping", phi->banquet->t_start);
+	ft_usleep(phi->time_to_sleep);
+	display_banquet(phi, "is_thinking", phi->banquet->t_start);
+	return (0);
+}
+
 int	meal(t_philo *phi)
 {
-	int		i;
 	long	time;
 
 	time = time_passed(phi->last_meal);
 	if (time >= phi->time_to_die)
 		return (-1);
 	phi->last_meal = last_meal_actualization();
-	i = -1;
 	display_banquet(phi, "is eating", phi->banquet->t_start);
-	while (++i < 20)
-	{
-		ft_usleep(phi->time_to_eat);
-	}
+	ft_usleep(phi->time_to_eat);
 	return (0);
 }
 
 int	grab_fork(t_philo *phi, long start)
 {
-	// faire comprendre qui prend la fourhette et laquelle ils doivent prendre.
 	if (is_dead(phi))
 		return (-1);
 	if (phi->no % 2 == 0)
@@ -41,8 +43,10 @@ int	grab_fork(t_philo *phi, long start)
 		pthread_mutex_lock(phi->left_fork);
 		display_banquet(phi, "has taken left fork", start);
 		display_banquet(phi, "has taken a right fork", start);
-		meal(phi);
+		if (meal(phi) < 0)
+			return (-1);
 		drop_fork(phi, start);
+		sleeping(phi);
 	}
 	else
 	{
@@ -53,6 +57,7 @@ int	grab_fork(t_philo *phi, long start)
 		if (meal(phi) < 0)
 			return (-1);
 		drop_fork(phi, start);
+		sleeping(phi);
 	}
 	return (0);
 }

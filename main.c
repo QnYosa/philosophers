@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/15 19:48:16 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/17 00:45:51 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void	*routine(void *b)
 	phi = (t_philo *)b;
 	while (1)
 	{
-		// ft_putstr_fd("philospher no = ", 1);
-		// ft_putnbr_fd(phi->no, 1);
-		// ft_putstr_fd(" is thinking \n", 1);
+		// display_banquet(phi, "hi philo", phi->banquet->t_start);
 		if (grab_fork(phi, phi->banquet->t_start) < 0)
 			return (NULL);
 	}
@@ -64,7 +62,6 @@ int	create_threads(t_banquet *b)
 		b->guests[i].last_meal = (t.tv_usec / 1000) + (t.tv_sec * 1000);
 		if (pthread_create(&b->guests[i].philo, NULL, &routine, &b->guests[i]))
 			return (-1);
-		usleep(300);
 	}
 	i = -1;
 	while (++i < b->n_guests)
