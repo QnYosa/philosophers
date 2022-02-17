@@ -1,11 +1,11 @@
-NAME = philosophers
+NAME = philo
 
 SRCS	= main.c parsing.c parsing_utils.c errors.c \
 		init_struct.c display.c banquet.c time.c \
 
 OBJS	= ${SRCS:.c=.o}
 
-CFLAGS	= -Wall -Werror -Wextra -g -pthread
+CFLAGS	= -Wall -Werror -Wextra -g -pthread #-fsanitize=thread
 
 CC		= gcc
 

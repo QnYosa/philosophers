@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 03:10:22 by dimitriyoul       #+#    #+#             */
-/*   Updated: 2022/02/15 19:44:51 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/17 18:49:28 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	ft_putchar(char c, int fd)
 void	display_banquet(t_philo *phi, char *str, long start)
 {
 	pthread_mutex_lock(&phi->banquet->display);
-	printf("%ld %d %s\n", time_passed(start), phi->no, str);
+	// if (phi->banquet->end == 0)
+		printf("%ld %d %s\n", time_passed(start), phi->no, str);
 	pthread_mutex_unlock(&phi->banquet->display);
 }
 
@@ -28,7 +29,7 @@ void	talk(char *str, t_philo *phi)
 {
 	pthread_mutex_lock(&phi->banquet->tlk_stick);
 	printf("talk %d, %s\n",phi->no, str);
-	pthread_mutex_unlock(&phi->banquet->display);
+	pthread_mutex_unlock(&phi->banquet->tlk_stick);
 }
 
 void	ft_putstr_fd(char *str, int fd)

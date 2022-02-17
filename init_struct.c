@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/15 19:43:39 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/17 23:55:08 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	assign_forks_philo(t_banquet *b)
 	while (++i < b->n_guests)
 	{
 		b->guests[i].left_fork = &b->forks[i];
-		b->guests[i].right_fork = &b->forks[(i + 1) % b->n_guests];
+		if (i == b->n_guests - 1)
+			b->guests[i].right_fork = &b->forks[0];
+		else
+			b->guests[i].right_fork = &b->forks[i + 1];
 	}
 	return (0);
 }
@@ -46,11 +49,14 @@ int	init_struct(t_banquet *banquet)
 	banquet->forks = NULL;
 	banquet->n_guests = 0;
 	banquet->t_start = 0;
+	banquet->end = 0;
 	if (pthread_mutex_init(&banquet->mutex, NULL))
 		return (-1);
 	if (pthread_mutex_init(&banquet->tlk_stick, NULL))
 		return (-1);
 	if (pthread_mutex_init(&banquet->display, NULL))
+		return (-1);
+	if (pthread_mutex_init(&banquet->death, NULL))
 		return (-1);
 	return (1);
 }

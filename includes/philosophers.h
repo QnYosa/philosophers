@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/15 19:43:26 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/17 20:24:33 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_banquet
 	t_philo			*guests;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	death;
 	pthread_mutex_t	display;
 	pthread_mutex_t	tlk_stick;
 	int				n_guests;
@@ -77,9 +78,10 @@ int		drop_fork(t_philo *phi, long start);
 
 /*		TIME.C			*/
 long	time_passed(long last);
-long	last_meal_actualization(void);
+long	last_meal_update(void);
 void	ft_usleep(int sleep);
 long	init_time(void);
 int		is_dead(t_philo *phi);
+int		check_death(t_philo *phi);
 
 #endif

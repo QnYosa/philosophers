@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 23:12:36 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/17 01:08:02 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/17 19:08:13 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	meal(t_philo *phi)
 	time = time_passed(phi->last_meal);
 	if (time >= phi->time_to_die)
 		return (-1);
-	phi->last_meal = last_meal_actualization();
+	phi->last_meal = last_meal_update();
 	display_banquet(phi, "is eating", phi->banquet->t_start);
 	ft_usleep(phi->time_to_eat);
 	return (0);
@@ -35,16 +35,17 @@ int	meal(t_philo *phi)
 
 int	grab_fork(t_philo *phi, long start)
 {
-	if (is_dead(phi))
-		return (-1);
 	if (phi->no % 2 == 0)
 	{
 		pthread_mutex_lock(phi->right_fork);
-		pthread_mutex_lock(phi->left_fork);
 		display_banquet(phi, "has taken left fork", start);
+		pthread_mutex_lock(phi->left_fork);
 		display_banquet(phi, "has taken a right fork", start);
 		if (meal(phi) < 0)
+		{
+			drop_fork(phi, start);
 			return (-1);
+		}
 		drop_fork(phi, start);
 		sleeping(phi);
 	}
@@ -52,10 +53,13 @@ int	grab_fork(t_philo *phi, long start)
 	{
 		pthread_mutex_lock(phi->left_fork);
 		pthread_mutex_lock(phi->right_fork);
-		display_banquet(phi, "has taken a left fork", start);
 		display_banquet(phi, "has taken right fork", start);
+		display_banquet(phi, "has taken a left fork", start);
 		if (meal(phi) < 0)
+		{
+			drop_fork(phi, start);
 			return (-1);
+		}
 		drop_fork(phi, start);
 		sleeping(phi);
 	}
