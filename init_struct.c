@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/17 23:55:08 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/18 16:46:08 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	init_struct(t_banquet *banquet)
 		return (-1);
 	if (pthread_mutex_init(&banquet->death, NULL))
 		return (-1);
+	if (pthread_mutex_init(&banquet->eat, NULL))
+		return (-1);
 	return (1);
 }
 
@@ -90,4 +92,3 @@ int	assign_struct(int ac, char **av, t_banquet *banquet)
 	}
 	return (1);
 }
-

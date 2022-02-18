@@ -1,7 +1,8 @@
 NAME = philo
 
 SRCS	= main.c parsing.c parsing_utils.c errors.c \
-		init_struct.c display.c banquet.c time.c \
+		init_struct.c display.c banquet.c time.c leaks.c \
+		check_death.c \
 
 OBJS	= ${SRCS:.c=.o}
 

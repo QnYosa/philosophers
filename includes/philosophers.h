@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/17 20:24:33 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/18 16:45:43 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_banquet
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	death;
+	pthread_mutex_t	eat;
 	pthread_mutex_t	display;
 	pthread_mutex_t	tlk_stick;
 	int				n_guests;
@@ -83,5 +84,8 @@ void	ft_usleep(int sleep);
 long	init_time(void);
 int		is_dead(t_philo *phi);
 int		check_death(t_philo *phi);
+
+/*		LEAKS.C			*/
+int		leaks_maestro(t_banquet *banquet);
 
 #endif
