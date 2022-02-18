@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/18 16:45:43 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/19 00:16:57 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,11 @@ long	time_passed(long last);
 long	last_meal_update(void);
 void	ft_usleep(int sleep);
 long	init_time(void);
+
+/*		CHECK_DEATH.C	*/
 int		is_dead(t_philo *phi);
 int		check_death(t_philo *phi);
+int		philo_is_full(t_philo *phi);
 
 /*		LEAKS.C			*/
 int		leaks_maestro(t_banquet *banquet);

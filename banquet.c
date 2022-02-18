@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 23:12:36 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/18 23:44:02 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/19 00:30:19 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	meal(t_philo *phi)
 		return (-1);
 	pthread_mutex_lock(&phi->banquet->eat);
 	phi->last_meal = last_meal_update();
+	if (phi->meals_limit > -1)
+		phi->meals_limit--;
 	pthread_mutex_unlock(&phi->banquet->eat);
 	display_banquet(phi, "is eating", phi->banquet->t_start);
 	if (!check_death(phi))

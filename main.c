@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/18 23:45:11 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/19 00:17:45 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	*routine(void *b)
 		if (drop_fork(phi, phi->banquet->t_start))
 			return (NULL);
 		if (sleeping(phi))
+			return (NULL);
+		if (philo_is_full(phi))
 			return (NULL);
 		// display_banquet(phi, "je suis bloque la", phi->banquet->t_start);
 		// if ()
