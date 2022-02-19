@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:13:27 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/19 00:47:58 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/19 21:47:55 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,41 @@ long	last_meal_update(void)
 	return (now);
 }
 
+int	ft_usleep_eat(t_philo *phi)
+{
+	int	i;
+	int	sleep;
+
+	i = -1;
+	sleep = phi->time_to_sleep * 100;
+	while (i++ < 10)
+	{
+		// if (check_death(phi))
+		// 	return (-1);
+		// if (is_dead(phi))
+		// 	return (-1);
+		usleep(sleep);
+	}
+	return (1);
+}
+
 int	ft_usleep(t_philo *phi)
 {
 	int	i;
 	int	sleep;
 
-	pthread_mutex_lock(&phi->banquet->sleep);
 	i = -1;
 	sleep = phi->time_to_sleep * 100;
 	while (i++ < 10)
 	{
 		if (check_death(phi))
-		{
-			pthread_mutex_unlock(&phi->banquet->sleep);
 			return (-1);
-		}
 		if (is_dead(phi))
-		{
-			pthread_mutex_unlock(&phi->banquet->sleep);
 			return (-1);
-		}
 		usleep(sleep);
 	}
-	pthread_mutex_unlock(&phi->banquet->sleep);
 	return (1);
 }
-
 long	init_time(void)
 {
 	struct timeval	time;

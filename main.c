@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/19 00:33:21 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/19 21:00:37 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ void	*routine(void *b)
 
 	phi = (t_philo *)b;
 	phi->last_meal = phi->banquet->t_start;
+	if (phi->no % 2 == 0)
+		usleep(100);
 	while (!check_death(phi))
 	{
-		if (phi->no % 2 == 0)
-			usleep(25);
-		if (is_dead(phi))
+		if (is_dead(phi) || check_death(phi))
 			return (NULL);
+		// printf("%ld et id = %d\n", phi->last_meal, phi->no);
 		if (grab_fork(phi, phi->banquet->t_start) < 0)
 			return (NULL);
 		if (meal(phi) < 0)
@@ -33,9 +34,7 @@ void	*routine(void *b)
 		}
 		if (drop_fork(phi, phi->banquet->t_start))
 			return (NULL);
-		if (sleeping(phi))
-			return (NULL);
-		if (philo_is_full(phi))
+		if (sleeping(phi) || philo_is_full(phi))
 			return (NULL);
 	}
 	return (NULL);
@@ -53,7 +52,9 @@ int	create_threads(t_banquet *b)
 	{
 		if (pthread_create(&b->guests[i].philo, NULL, &routine, &b->guests[i]))
 			return (-1);
+		// usleep(1);
 	}
+
 	i = -1;
 	while (++i < b->n_guests)
 	{
