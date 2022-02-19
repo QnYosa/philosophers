@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/19 00:46:13 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/19 01:15:46 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ typedef struct s_philo
 	int					no;
 	struct s_banquet	*banquet;
 	long				last_meal;
-	// first meal = time start - first_meal
-	// last meal = last meal - get time;
 }	t_philo;
 
 typedef struct s_banquet
