@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/19 00:06:53 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/19 01:15:06 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,23 @@ int	init_struct(t_banquet *banquet)
 		return (-1);
 	if (pthread_mutex_init(&banquet->eat, NULL))
 		return (-1);
+	if (pthread_mutex_init(&banquet->sleep, NULL))
+		return (-1);
 	return (1);
+}
+
+void	fill_philo(t_banquet *banquet, int ac, char **av, int i)
+{
+	banquet->guests[i].time_to_die = ft_atoi(av[2]);
+	banquet->guests[i].time_to_eat = ft_atoi(av[3]);
+	banquet->guests[i].time_to_sleep = ft_atoi(av[4]);
+	if (ac == 6)
+		banquet->guests[i].meals_limit = ft_atoi(av[5]);
+	else
+		banquet->guests[i].meals_limit = -1;
+	banquet->guests[i].no = i + 1;
+	banquet->guests[i].banquet = banquet;
+	assign_forks_philo(banquet);
 }
 
 int	assign_struct(int ac, char **av, t_banquet *banquet)
@@ -79,16 +95,7 @@ int	assign_struct(int ac, char **av, t_banquet *banquet)
 	{
 		if (pthread_mutex_init(banquet->forks + i, NULL) != 0)
 			return (-2);
-		banquet->guests[i].time_to_die = ft_atoi(av[2]);
-		banquet->guests[i].time_to_eat = ft_atoi(av[3]);
-		banquet->guests[i].time_to_sleep = ft_atoi(av[4]);
-		if (ac == 6)
-			banquet->guests[i].meals_limit = ft_atoi(av[5]);
-		else
-			banquet->guests[i].meals_limit = -1;
-		banquet->guests[i].no = i + 1;
-		banquet->guests[i].banquet = banquet;
-		assign_forks_philo(banquet);
+		fill_philo(banquet, ac, av, i);
 	}
 	return (1);
 }

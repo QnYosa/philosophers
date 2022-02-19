@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/19 00:16:57 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/19 00:46:13 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_banquet
 	pthread_mutex_t	death;
 	pthread_mutex_t	eat;
 	pthread_mutex_t	display;
+	pthread_mutex_t	sleep;
 	pthread_mutex_t	tlk_stick;
 	int				n_guests;
 	long long		t_start;
@@ -73,14 +74,15 @@ void	ft_putnbr_fd(int nb, int fd);
 void	talk(char *str, t_philo *phi);
 
 /*		BANQUET.C		*/
-int		grab_fork(t_philo *phi, long start);
+int		sleeping(t_philo *phi);
 int		meal(t_philo *phi);
+int		grab_fork(t_philo *phi, long start);
 int		drop_fork(t_philo *phi, long start);
 
 /*		TIME.C			*/
 long	time_passed(long last);
 long	last_meal_update(void);
-void	ft_usleep(int sleep);
+int		ft_usleep(t_philo *phi);
 long	init_time(void);
 
 /*		CHECK_DEATH.C	*/
