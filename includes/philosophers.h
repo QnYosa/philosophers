@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/19 21:41:04 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/22 00:16:24 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_banquet
 	int				n_guests;
 	long long		t_start;
 	int				end;
+	struct timeval	start_time;
 }	t_banquet;
 
 /*		PARSING.C		*/
@@ -70,23 +71,21 @@ int		assign_struct(int ac, char **av, t_banquet *banquet);
 void	display_banquet(t_philo *phi, char *str, long start);
 void	ft_putstr_fd(char *str, int fd);
 void	ft_putnbr_fd(int nb, int fd);
-void	talk(char *str, t_philo *phi);
 
 /*		BANQUET.C		*/
 int		sleeping(t_philo *phi);
 int		meal(t_philo *phi);
-int		grab_fork(t_philo *phi, long start);
-int		drop_fork(t_philo *phi, long start);
+int		grab_fork(t_philo *phi);
+int		drop_fork(t_philo *phi);
 
 /*		TIME.C			*/
 long	time_passed(long last);
 long	last_meal_update(void);
 int		ft_usleep_eat(t_philo *phi);
-int		ft_usleep(t_philo *phi);
-long	init_time(void);
+void	ft_usleep(t_banquet *b, long time);
+long	init_time(t_banquet *b);
 
 /*		CHECK_DEATH.C	*/
-int		is_dead(t_philo *phi);
 int		check_death(t_philo *phi);
 int		philo_is_full(t_philo *phi);
 

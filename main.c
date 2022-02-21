@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/19 21:00:37 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/22 00:21:38 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,59 @@ void	*routine(void *b)
 	t_philo	*phi;
 
 	phi = (t_philo *)b;
-	phi->last_meal = phi->banquet->t_start;
 	if (phi->no % 2 == 0)
-		usleep(100);
+		ft_usleep(phi->banquet, 50);
 	while (!check_death(phi))
 	{
-		if (is_dead(phi) || check_death(phi))
+		if (phi->meals_limit == 0)
 			return (NULL);
-		// printf("%ld et id = %d\n", phi->last_meal, phi->no);
-		if (grab_fork(phi, phi->banquet->t_start) < 0)
-			return (NULL);
-		if (meal(phi) < 0)
+		grab_fork(phi);
+		if (phi->banquet->n_guests == 1)
 		{
-			drop_fork(phi, phi->banquet->t_start);
 			return (NULL);
 		}
-		if (drop_fork(phi, phi->banquet->t_start))
-			return (NULL);
+		meal(phi);
+		drop_fork(phi);
 		if (sleeping(phi) || philo_is_full(phi))
 			return (NULL);
+		ft_usleep(phi->banquet, 1);
 	}
 	return (NULL);
+}
+
+int	isdeadboi(t_philo *phi)
+{
+	long	lastate;
+
+	pthread_mutex_lock(&phi->banquet->eat);
+	lastate = phi->last_meal;
+	pthread_mutex_unlock(&phi->banquet->eat);
+	if (init_time(phi->banquet) - lastate >= phi->time_to_die)
+	{
+		pthread_mutex_lock(&phi->banquet->check);
+		if (!phi->banquet->end && !philo_is_full(phi))
+			display_banquet(phi, "died", phi->banquet->t_start);
+		phi->banquet->end = 1;
+		pthread_mutex_unlock(&phi->banquet->check);
+		return (1);
+	}
+	return (0);
+}
+
+void	single_monitor(t_banquet *b)
+{
+	int		i;
+
+	while (1)
+	{
+		i = -1;
+		while (++i < b->n_guests)
+		{
+			if (isdeadboi(&b->guests[i]))
+				return ;
+		}
+		ft_usleep(b, 1);
+	}
 }
 
 int	create_threads(t_banquet *b)
@@ -52,9 +84,8 @@ int	create_threads(t_banquet *b)
 	{
 		if (pthread_create(&b->guests[i].philo, NULL, &routine, &b->guests[i]))
 			return (-1);
-		// usleep(1);
 	}
-
+	single_monitor(b);
 	i = -1;
 	while (++i < b->n_guests)
 	{
@@ -73,8 +104,8 @@ int	main(int ac, char **av)
 	if (init_struct(&banquet) < 0)
 		return (-1);
 	assign_struct(ac, av, &banquet);
+	gettimeofday(&banquet.start_time, NULL);
 	create_threads(&banquet);
 	leaks_maestro(&banquet);
-	printf("HELLO WORLD\n");
 	return (0);
 }

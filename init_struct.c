@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lgaducew <lgaducew@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/19 20:33:22 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/20 02:33:52 by lgaducew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	assign_struct(int ac, char **av, t_banquet *banquet)
 	banquet->n_guests = ft_atoi(av[1]);
 	banquet->guests = malloc(sizeof(t_philo) * banquet->n_guests);
 	banquet->forks = malloc(sizeof(pthread_mutex_t) * banquet->n_guests);
-	banquet->t_start = init_time();
+	banquet->t_start = init_time(banquet);
 	if (!banquet->n_guests || !banquet->forks)
 		return (-1);
 	init_philo(banquet);

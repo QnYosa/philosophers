@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:13:27 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/19 21:47:55 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/21 23:48:36 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,39 +40,28 @@ int	ft_usleep_eat(t_philo *phi)
 	i = -1;
 	sleep = phi->time_to_sleep * 100;
 	while (i++ < 10)
-	{
-		// if (check_death(phi))
-		// 	return (-1);
-		// if (is_dead(phi))
-		// 	return (-1);
 		usleep(sleep);
-	}
 	return (1);
 }
 
-int	ft_usleep(t_philo *phi)
+void	ft_usleep(t_banquet *b, long time)
 {
-	int	i;
-	int	sleep;
+	long	now;
 
-	i = -1;
-	sleep = phi->time_to_sleep * 100;
-	while (i++ < 10)
+	now = init_time(b);
+	while (1)
 	{
-		if (check_death(phi))
-			return (-1);
-		if (is_dead(phi))
-			return (-1);
-		usleep(sleep);
+		if (init_time(b) - now >= time)
+			return ;
+		usleep(51);
 	}
-	return (1);
 }
-long	init_time(void)
-{
-	struct timeval	time;
-	long			start;
 
-	gettimeofday(&time, NULL);
-	start = time.tv_usec / 1000 + time.tv_sec * 1000;
-	return (start);
+long	init_time(t_banquet *b)
+{
+	struct timeval	now;
+
+	gettimeofday(&now, NULL);
+	return ((now.tv_sec - b->start_time.tv_sec) * 1000 + \
+	(now.tv_usec - b->start_time.tv_usec) / 1000);
 }

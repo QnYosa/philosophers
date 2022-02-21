@@ -6,7 +6,7 @@ SRCS	= main.c parsing.c parsing_utils.c errors.c \
 
 OBJS	= ${SRCS:.c=.o}
 
-CFLAGS	= -Wall -Werror -Wextra -g -pthread #-fsanitize=thread
+CFLAGS	= -Wall -Werror -Wextra -g -pthread #-O3 -Wall -Werror -Wextra -g -pthread #-fsanitize=thread
 
 CC		= gcc
 
@@ -15,10 +15,10 @@ RM		= rm -f
 all:	$(NAME)
 
 $(NAME):	${OBJS}
-			${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+			${CC} ${CFLAGS} ${OBJS} -o ${NAME} -lpthread
 
 .c.o:
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+		${CC} ${CFLAGS} -c $< -o ${<:.c=.o} 
 
 clean:
 		${RM} ${OBJS}
