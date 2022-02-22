@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/22 00:21:38 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/22 02:46:48 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ int	isdeadboi(t_philo *phi)
 	if (init_time(phi->banquet) - lastate >= phi->time_to_die)
 	{
 		pthread_mutex_lock(&phi->banquet->check);
-		if (!phi->banquet->end && !philo_is_full(phi))
+		if (philo_is_full(phi))
+		{
+			pthread_mutex_unlock(&phi->banquet->check);
+			return (1);
+		}
+		else if (!phi->banquet->end)
 			display_banquet(phi, "died", phi->banquet->t_start);
 		phi->banquet->end = 1;
 		pthread_mutex_unlock(&phi->banquet->check);
@@ -68,7 +73,7 @@ void	single_monitor(t_banquet *b)
 			if (isdeadboi(&b->guests[i]))
 				return ;
 		}
-		ft_usleep(b, 1);
+		ft_usleep(b, 40);
 	}
 }
 
