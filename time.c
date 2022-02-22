@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:13:27 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/22 02:26:17 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/22 23:06:00 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_usleep(t_banquet *b, long time)
 	{
 		if (init_time(b) - now >= time)
 			return ;
-		usleep(51);
+		usleep(50);
 	}
 }
 

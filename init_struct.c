@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgaducew <lgaducew@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/20 02:33:52 by lgaducew         ###   ########.fr       */
+/*   Updated: 2022/02/22 21:32:11 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	init_philo(t_banquet *banquet)
 		banquet->guests[i].time_to_die = 0;
 		banquet->guests[i].time_to_eat = 0;
 		banquet->guests[i].time_to_sleep = 0;
+		banquet->guests[i].last_meal = 0;
+		banquet->guests[i].time_to_think = 0;
 		banquet->guests[i].banquet = NULL;
 	}
 }
@@ -64,6 +66,8 @@ int	init_struct(t_banquet *banquet)
 		return (-1);
 	if (pthread_mutex_init(&banquet->check, NULL))
 		return (-1);
+	if (pthread_mutex_init(&banquet->lock, NULL))
+		return (-1);
 	return (1);
 }
 
@@ -76,6 +80,8 @@ void	fill_philo(t_banquet *banquet, int ac, char **av, int i)
 		banquet->guests[i].meals_limit = ft_atoi(av[5]);
 	else
 		banquet->guests[i].meals_limit = -1;
+	if (banquet->guests[i].time_to_eat > banquet->guests[i].time_to_sleep)
+		banquet->guests[i].time_to_think = -1;
 	banquet->guests[i].no = i + 1;
 	banquet->guests[i].banquet = banquet;
 	assign_forks_philo(banquet);

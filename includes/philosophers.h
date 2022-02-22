@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/22 00:16:24 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/22 23:27:41 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_philo
 	long				time_to_die;
 	long				time_to_eat;
 	long				time_to_sleep;
+	long				time_to_think;
 	int					meals_limit;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
@@ -46,6 +47,7 @@ typedef struct s_banquet
 	pthread_mutex_t	sleep;
 	pthread_mutex_t	tlk_stick;
 	pthread_mutex_t	check;
+	pthread_mutex_t	lock;
 	int				n_guests;
 	long long		t_start;
 	int				end;
@@ -88,6 +90,8 @@ long	init_time(t_banquet *b);
 /*		CHECK_DEATH.C	*/
 int		check_death(t_philo *phi);
 int		philo_is_full(t_philo *phi);
+int		is_dead(t_philo *phi);
+long	current_time(void);
 
 /*		LEAKS.C			*/
 int		leaks_maestro(t_banquet *banquet);
