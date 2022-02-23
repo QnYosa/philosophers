@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/23 00:34:10 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/23 08:55:05 by dimitriyoul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,20 @@ void	*routine(void *b)
 int	isdeadboi(t_philo *phi)
 {
 	long	difference;
+	long	starved;
 
 	pthread_mutex_lock(&phi->banquet->eat);
-	difference = init_time(phi->banquet) - phi->last_meal;
+	starved = time_passed(phi->banquet->t_start);
+	difference = time_passed(phi->last_meal);
 	pthread_mutex_unlock(&phi->banquet->eat);
-	// printf("diff %ld no = %d\n", difference, phi->no);
-	// printf("time to die = %ld\n", phi->time_to_die);
-	if (difference > phi->time_to_die)
+	if ((difference >= phi->time_to_die && phi->has_eaten_yet) \
+		|| (starved >= phi->time_to_die && !phi->has_eaten_yet))
 	{
 		pthread_mutex_lock(&phi->banquet->lock);
 		if (philo_is_full(phi) < 0)
 		{
 			pthread_mutex_unlock(&phi->banquet->lock);
-			return (0);
+			return (2);
 		}
 		else if (!phi->banquet->end)
 			display_banquet(phi, "died", phi->banquet->t_start);
@@ -73,7 +74,7 @@ void	single_monitor(t_banquet *b)
 		i = -1;
 		while (++i < b->n_guests)
 		{
-			if (isdeadboi(&b->guests[i]) < 0)
+			if (isdeadboi(&b->guests[i]) > 0)
 				return ;
 		}
 		ft_usleep(b, 1);

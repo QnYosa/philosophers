@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   banquet.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 23:12:36 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/23 00:27:44 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/23 08:43:09 by dimitriyoul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ int	meal(t_philo *phi)
 		display_banquet(phi, "is eating", phi->banquet->t_start);
 	if (phi->meals_limit > -1)
 		phi->meals_limit--;
-	printf("meals limit %d\n", phi->meals_limit);
+	// printf("meals limit %d\n", phi->meals_limit);
 	pthread_mutex_unlock(&phi->banquet->check);
 	pthread_mutex_lock(&phi->banquet->eat);
-	phi->last_meal = last_meal_update();
 	// printf("phi->lastmeal = %ld no %d\n", init_time(phi->banquet) - phi->last_meal, phi->no);
 	pthread_mutex_unlock(&phi->banquet->eat);
 	ft_usleep(phi->banquet, phi->time_to_eat);
+	phi->last_meal = last_meal_update();
+	phi->has_eaten_yet = 1;
 	// usleep(phi->time_to_eat * 1000);
 	return (0);
 }

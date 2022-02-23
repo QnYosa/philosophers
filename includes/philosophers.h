@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/22 23:27:41 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/23 08:37:09 by dimitriyoul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_philo
 	long				time_to_sleep;
 	long				time_to_think;
 	int					meals_limit;
+	int					has_eaten_yet;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 	int					no;

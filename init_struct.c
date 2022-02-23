@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/22 21:32:11 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/23 08:37:34 by dimitriyoul      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_philo(t_banquet *banquet)
 		banquet->guests[i].last_meal = 0;
 		banquet->guests[i].time_to_think = 0;
 		banquet->guests[i].banquet = NULL;
+		banquet->guests[i].has_eaten_yet = 0;
 	}
 }
 
