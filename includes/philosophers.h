@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
+/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 23:38:22 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/23 08:37:09 by dimitriyoul      ###   ########.fr       */
+/*   Updated: 2022/02/24 03:31:17 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ typedef struct s_philo
 	long				time_to_think;
 	int					meals_limit;
 	int					has_eaten_yet;
+	long				starved;
+	long				difference;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
+	pthread_mutex_t		block;
 	int					no;
 	struct s_banquet	*banquet;
 	long				last_meal;
@@ -96,5 +99,8 @@ long	current_time(void);
 
 /*		LEAKS.C			*/
 int		leaks_maestro(t_banquet *banquet);
+
+/*		NORM.C			*/
+int		norm_isdeadboi(t_philo *phi);
 
 #endif

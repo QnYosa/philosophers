@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 03:10:22 by dimitriyoul       #+#    #+#             */
-/*   Updated: 2022/02/22 16:50:43 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/23 20:30:49 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	ft_putchar(char c, int fd)
 
 void	display_banquet(t_philo *phi, char *str, long start)
 {
+	pthread_mutex_lock(&phi->banquet->tlk_stick);
 	printf("%ld %d %s\n", time_passed(start), phi->no, str);
+	pthread_mutex_unlock(&phi->banquet->tlk_stick);
+
 }
 
 void	ft_putstr_fd(char *str, int fd)

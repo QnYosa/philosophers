@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 00:50:03 by dimitriyoul       #+#    #+#             */
-/*   Updated: 2022/02/19 01:12:14 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/23 17:34:33 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	leaks_maestro(t_banquet *banquet)
 	pthread_mutex_destroy(&banquet->death);
 	pthread_mutex_destroy(&banquet->eat);
 	pthread_mutex_destroy(&banquet->sleep);
+	pthread_mutex_destroy(&banquet->lock);
 	while (++i < banquet->n_guests)
 		pthread_mutex_destroy(banquet->forks + i);
 	free(banquet->guests);

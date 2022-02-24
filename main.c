@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
+/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/23 08:55:05 by dimitriyoul      ###   ########.fr       */
+/*   Updated: 2022/02/24 03:27:46 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	*routine(void *b)
 			return (NULL);
 		meal(phi);
 		drop_fork(phi);
-		sleeping(phi);
+		if (sleeping(phi) < 0)
+			return (NULL);
 		if (philo_is_full(phi) < 0)
 			return (NULL);
 		ft_usleep(phi->banquet, 1);
@@ -38,30 +39,23 @@ void	*routine(void *b)
 
 int	isdeadboi(t_philo *phi)
 {
+	int		dead;
 	long	difference;
 	long	starved;
 
-	pthread_mutex_lock(&phi->banquet->eat);
+	pthread_mutex_lock(&phi->block);
 	starved = time_passed(phi->banquet->t_start);
 	difference = time_passed(phi->last_meal);
-	pthread_mutex_unlock(&phi->banquet->eat);
 	if ((difference >= phi->time_to_die && phi->has_eaten_yet) \
 		|| (starved >= phi->time_to_die && !phi->has_eaten_yet))
+		dead = 1;
+	else
+		dead = 0;
+	if (dead == 1)
 	{
-		pthread_mutex_lock(&phi->banquet->lock);
-		if (philo_is_full(phi) < 0)
-		{
-			pthread_mutex_unlock(&phi->banquet->lock);
-			return (2);
-		}
-		else if (!phi->banquet->end)
-			display_banquet(phi, "died", phi->banquet->t_start);
-		pthread_mutex_lock(&phi->banquet->death);
-		phi->banquet->end = 1;
-		pthread_mutex_unlock(&phi->banquet->death);
-		pthread_mutex_unlock(&phi->banquet->lock);
-		return (1);
+		return (norm_isdeadboi(phi));
 	}
+	pthread_mutex_unlock(&phi->block);
 	return (0);
 }
 
@@ -100,6 +94,7 @@ int	create_threads(t_banquet *b)
 	{
 		if (pthread_join(b->guests[i].philo, NULL))
 			return (-1);
+		// usleep(10);
 	}
 	return (0);
 }
@@ -107,20 +102,12 @@ int	create_threads(t_banquet *b)
 int	main(int ac, char **av)
 {
 	t_banquet	banquet;
-	// long		now;
-	// long		then;
-	// long		difference;
 
 	if (parsing_maestro(ac, av) < 0)
 		return (-1);
 	if (init_struct(&banquet) < 0)
 		return (-1);
 	assign_struct(ac, av, &banquet);
-	// now = init_time(&banquet);
-	// usleep(500000);
-	// then = init_time(&banquet);
-	// difference = then - now;
-	// printf("diff = %ld\n", difference);
 	gettimeofday(&banquet.start_time, NULL);
 	create_threads(&banquet);
 	leaks_maestro(&banquet);

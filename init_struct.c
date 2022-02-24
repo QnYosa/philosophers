@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimitriyoula <dimitriyoula@student.42.f    +#+  +:+       +#+        */
+/*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 00:01:45 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/23 08:37:34 by dimitriyoul      ###   ########.fr       */
+/*   Updated: 2022/02/23 22:44:19 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	assign_forks_philo(t_banquet *b)
 	return (0);
 }
 
-void	init_philo(t_banquet *banquet)
+int	init_philo(t_banquet *banquet)
 {
 	int	i;
 
@@ -36,6 +36,8 @@ void	init_philo(t_banquet *banquet)
 	while (++i < banquet->n_guests)
 	{
 		banquet->guests[i].no = 0;
+		banquet->guests[i].starved = 0;
+		banquet->guests[i].difference = 0;
 		banquet->guests[i].time_to_die = 0;
 		banquet->guests[i].time_to_eat = 0;
 		banquet->guests[i].time_to_sleep = 0;
@@ -43,7 +45,10 @@ void	init_philo(t_banquet *banquet)
 		banquet->guests[i].time_to_think = 0;
 		banquet->guests[i].banquet = NULL;
 		banquet->guests[i].has_eaten_yet = 0;
+		if (pthread_mutex_init(&banquet->guests[i].block, NULL))
+			return (-1);
 	}
+	return (0);
 }
 
 int	init_struct(t_banquet *banquet)
@@ -57,6 +62,8 @@ int	init_struct(t_banquet *banquet)
 		return (-1);
 	if (pthread_mutex_init(&banquet->tlk_stick, NULL))
 		return (-1);
+	if (pthread_mutex_init(&banquet->check, NULL))
+		return (-1);
 	if (pthread_mutex_init(&banquet->display, NULL))
 		return (-1);
 	if (pthread_mutex_init(&banquet->death, NULL))
@@ -64,8 +71,6 @@ int	init_struct(t_banquet *banquet)
 	if (pthread_mutex_init(&banquet->eat, NULL))
 		return (-1);
 	if (pthread_mutex_init(&banquet->sleep, NULL))
-		return (-1);
-	if (pthread_mutex_init(&banquet->check, NULL))
 		return (-1);
 	if (pthread_mutex_init(&banquet->lock, NULL))
 		return (-1);
@@ -99,7 +104,11 @@ int	assign_struct(int ac, char **av, t_banquet *banquet)
 	banquet->t_start = init_time(banquet);
 	if (!banquet->n_guests || !banquet->forks)
 		return (-1);
-	init_philo(banquet);
+	if (init_philo(banquet))
+	{
+		leaks_maestro(banquet);
+		return (-1);
+	}
 	while (++i < banquet->n_guests)
 	{
 		if (pthread_mutex_init(banquet->forks + i, NULL) != 0)

@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:13:27 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/22 23:06:00 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/24 04:48:53 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,19 @@ int	ft_usleep_eat(t_philo *phi)
 {
 	int	i;
 	int	sleep;
+	int	end;
 
 	i = -1;
 	sleep = phi->time_to_sleep * 100;
 	while (i++ < 10)
+	{
+		pthread_mutex_lock(&phi->banquet->lock);
+		end = phi->banquet->end;
+		pthread_mutex_unlock(&phi->banquet->lock);
+		if (end)
+			return (-1);
 		usleep(sleep);
+	}
 	return (1);
 }
 
