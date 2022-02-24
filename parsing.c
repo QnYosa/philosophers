@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 23:12:39 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/22 16:39:16 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/24 07:55:56 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,15 @@ int	parsing_maestro(int ac, char **av)
 {
 	if (ac < 5)
 		return (parsing_errors(-1));
+	if (ft_atoi(av[1]) < 1 || ft_atoi(av[2]) < 60 || ft_atoi(av[3]) < 60 \
+	|| ft_atoi(av[4]) < 60 || ft_atoi(av[4]) < 1)
+	{
+		printf("Invalid value\n");
+		return (-2);
+	}
 	if (only_numbers(av) < 0)
-		return (parsing_errors(-2));
+		return (parsing_errors(-3));
 	if (!ft_atoi(av[1]))
-		return (-1);
+		return (-4);
 	return (0);
 }

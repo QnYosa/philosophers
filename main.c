@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:54:10 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/24 03:27:46 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/24 07:45:13 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int	create_threads(t_banquet *b)
 	{
 		if (pthread_join(b->guests[i].philo, NULL))
 			return (-1);
-		// usleep(10);
 	}
 	return (0);
 }

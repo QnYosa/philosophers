@@ -6,7 +6,7 @@
 /*   By: dyoula <dyoula@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 23:12:36 by dyoula            #+#    #+#             */
-/*   Updated: 2022/02/24 05:52:21 by dyoula           ###   ########.fr       */
+/*   Updated: 2022/02/24 07:45:34 by dyoula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	sleeping(t_philo *phi)
 	pthread_mutex_unlock(&phi->block);
 	if (!end)
 		display_banquet(phi, "is sleeping", phi->banquet->t_start);
-	// usleep(1000);
 	ft_usleep(phi->banquet, phi->time_to_sleep);
-	// usleep(500);
 	pthread_mutex_lock(&phi->block);
 	pthread_mutex_lock(&phi->banquet->lock);
 	end = phi->banquet->end;
